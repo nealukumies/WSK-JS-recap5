@@ -9,6 +9,11 @@ async function init() {
       renderTable();
     } else {
       console.error('Failed to fetch restaurants or invalid data format.');
+      const body = document.querySelector('body');
+      const h2 = document.createElement('h2');
+      h2.innerHTML =
+        'Check connection to restaurant-API. Use VPN outside of Metropolia.';
+      body.appendChild(h2);
     }
   } catch (error) {
     console.error('Error initializing the application:', error);
