@@ -6,7 +6,7 @@ async function init() {
       name: 'John Doe',
       job: 'Developer',
     };
-    const url = 'https://reqres.in/ai/users';
+    const url = 'https://reqres.in/api/users';
     const options = {
       method: 'POST',
       headers: {
