@@ -1,3 +1,4 @@
+import {getMenu} from './getMenu.js';
 import {getRestaurants} from './getRestaurants.js';
 
 async function init() {
@@ -11,10 +12,11 @@ function renderTable() {
   const dialog = document.querySelector('dialog');
   for (const restaurant of restaurants) {
     const tr = document.createElement('tr');
-    tr.addEventListener('click', function () {
+    tr.addEventListener('click', async function () {
       tr.classList.add('highlight');
       dialog.innerHTML = '';
       dialog.showModal();
+
       const h3 = document.createElement('h3');
       h3.innerHTML = restaurant.name;
       const p = document.createElement('p');
@@ -27,13 +29,27 @@ function renderTable() {
       p4.innerHTML = restaurant.phone;
       const p5 = document.createElement('p');
       p5.innerHTML = restaurant.company;
+      const p6 = document.createElement('p');
+      try {
+        const menu = await getMenu(restaurant._id, 'en');
+
+        if (menu.length > 0) {
+          p6.innerHTML = menu.map((course) => `${course.name}`).join('<br>');
+        } else {
+          p6.innerHTML = 'No menu available today.';
+        }
+      } catch (error) {
+        p6.innerHTML = 'Error fetching menu.';
+      }
+
       const closeButton = document.createElement('button');
       closeButton.setAttribute('class', 'close-btn');
       closeButton.innerHTML = 'Close';
       closeButton.addEventListener('click', () => {
         dialog.close();
       });
-      dialog.append(h3, p, p2, p3, p4, p5, closeButton);
+
+      dialog.append(h3, p, p2, p3, p4, p5, p6, closeButton);
     });
 
     dialog.addEventListener('close', () => {
