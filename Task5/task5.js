@@ -30,11 +30,33 @@ function renderTable() {
       const p5 = document.createElement('p');
       p5.innerHTML = restaurant.company;
       const p6 = document.createElement('p');
+      p6.setAttribute('class', 'menu-items');
       try {
         const menu = await getMenu(restaurant._id, 'en');
 
         if (menu.length > 0) {
-          p6.innerHTML = menu.map((course) => `${course.name}`).join('<br>');
+          const menuTable = document.createElement('table');
+          menuTable.innerHTML = `
+            <thead>
+              <tr>
+              <th>Course</th>
+              <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            `;
+          const tbody = menuTable.querySelector('tbody');
+          for (const course of menu) {
+            const row = document.createElement('tr');
+            const coursetd = document.createElement('td');
+            coursetd.innerHTML = course.name;
+            const pricetd = document.createElement('td');
+            pricetd.innerHTML = course.price;
+            row.append(coursetd, pricetd);
+            tbody.appendChild(row);
+          }
+          p6.appendChild(menuTable);
         } else {
           p6.innerHTML = 'No menu available today.';
         }

@@ -39,3 +39,17 @@ button {
   border: none;
   cursor: pointer;
 }
+
+.menu-items {
+  background-color: #5050a8;
+  color: #fff;
+}
+
+.menu-items th {
+  background-color: #96b1fc;
+  border-left: 1px solid #ccc;
+}
+
+.menu-items td {
+  border-left: 1px solid #ccc;
+}
