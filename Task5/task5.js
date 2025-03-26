@@ -3,7 +3,7 @@ import {getRestaurants} from './getRestaurants.js';
 
 async function init() {
   try {
-    let restaurants = await getRestaurants();
+    restaurants = await getRestaurants();
     if (restaurants && Array.isArray(restaurants)) {
       restaurants.sort((a, b) => a.name.localeCompare(b.name));
       renderTable();
