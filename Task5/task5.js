@@ -2,9 +2,17 @@ import {getMenu} from './getMenu.js';
 import {getRestaurants} from './getRestaurants.js';
 
 async function init() {
-  restaurants = await getRestaurants();
-  restaurants.sort((a, b) => a.name.localeCompare(b.name));
-  renderTable();
+  try {
+    let restaurants = await getRestaurants();
+    if (restaurants && Array.isArray(restaurants)) {
+      restaurants.sort((a, b) => a.name.localeCompare(b.name));
+      renderTable();
+    } else {
+      console.error('Failed to fetch restaurants or invalid data format.');
+    }
+  } catch (error) {
+    console.error('Error initializing the application:', error);
+  }
 }
 
 function renderTable() {

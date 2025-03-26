@@ -8,7 +8,7 @@ export async function getRestaurants() {
     console.log(jsonData);
     return jsonData;
   } catch (error) {
-    console.log(error.message);
+    console.log('Failed to get restaurants: ' + error.message);
   } finally {
     console.log('asynchronous load complete');
   }
